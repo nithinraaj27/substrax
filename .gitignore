@@ -1,0 +1,48 @@
+# ==========================================
+# 🛑 CRITICAL: Secrets & Credentials
+# ==========================================
+.env
+*.pem
+*.key
+aws_credentials
+credentials.json
+secrets.py
+
+# ==========================================
+# 🐍 Python (Producer & Scripts)
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ==========================================
+# ☕ Java / Spring Boot (Consumer)
+# ==========================================
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+*.ear
+.mtj.tmp/
+
+# ==========================================
+# 🌬️ Apache Airflow
+# ==========================================
+logs/
+airflow.db
+airflow-webserver.pid
+standalone_admin_password.txt
+
+# ==========================================
+# 🐳 Docker & System
+# ==========================================
+.DS_Store
+Thumbs.db
+*.log
+.docker/
