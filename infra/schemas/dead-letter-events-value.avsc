@@ -1,0 +1,41 @@
+{
+  "type": "record",
+  "name": "DeadLetterEvent",
+  "namespace": "com.substrax.events.dlt",
+  "fields": [
+    {
+      "name": "event_id",
+      "type": "string"
+    },
+    {
+      "name": "source_service",
+      "type": "string"
+    },
+    {
+      "name": "original_topic",
+      "type": "string"
+    },
+    {
+      "name": "partition",
+      "type": "int"
+    },
+    {
+      "name": "offset",
+      "type": "long"
+    },
+    {
+      "name": "error_message",
+      "type": "string"
+    },
+    {
+      "name": "payload",
+      "type": "string",
+      "doc": "Original message payload as string (JSON/Avro)"
+    },
+    {
+      "name": "failed_at",
+      "type": "long",
+      "doc": "Epoch milliseconds"
+    }
+  ]
+}

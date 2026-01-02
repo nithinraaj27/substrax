@@ -7,7 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
+        <module name="common-observability" />
         <module name="eureka-server" />
+        <module name="common-exception" />
+        <module name="common-auth" />
       </profile>
     </annotationProcessing>
   </component>

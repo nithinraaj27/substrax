@@ -1,0 +1,43 @@
+{
+  "type": "record",
+  "name": "NotificationEvent",
+  "namespace": "com.substrax.events.notification",
+  "fields": [
+    {
+      "name": "notification_id",
+      "type": "string"
+    },
+    {
+      "name": "transaction_id",
+      "type": "string"
+    },
+    {
+      "name": "user_id",
+      "type": "string"
+    },
+    {
+      "name": "channel",
+      "type": {
+        "type": "enum",
+        "name": "NotificationChannel",
+        "symbols": [
+          "EMAIL",
+          "SMS"
+        ]
+      }
+    },
+    {
+      "name": "template",
+      "type": "string"
+    },
+    {
+      "name": "recipient",
+      "type": "string"
+    },
+    {
+      "name": "event_time",
+      "type": "long",
+      "doc": "Epoch milliseconds"
+    }
+  ]
+}

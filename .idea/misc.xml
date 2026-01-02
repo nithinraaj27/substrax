@@ -6,6 +6,9 @@
       <list>
         <option value="$PROJECT_DIR$/services/eureka-server/pom.xml" />
         <option value="$PROJECT_DIR$/services/api-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/common/common-exception/pom.xml" />
+        <option value="$PROJECT_DIR$/common/common-observability/pom.xml" />
+        <option value="$PROJECT_DIR$/common/common-auth/pom.xml" />
       </list>
     </option>
   </component>
