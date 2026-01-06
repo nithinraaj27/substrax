@@ -1,5 +1,8 @@
 services:
 
+  # ------------------------------------------------------------------------------
+  # Utilities
+  # ------------------------------------------------------------------------------
   eureka-server:
     container_name: eureka-server
     build:
@@ -32,20 +35,40 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:25.0.2
     container_name: keycloak
-    command: start-dev
+    command: start-dev --import-realm
     ports:
       - "8081:8080"
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak
+
+    volumes:
+      - ./infra/keycloak/realm-export:/opt/keycloak/data/import
+
+    depends_on:
+      - keycloak-db
     networks:
       - substrax-network
+
 
   zipkin:
     image: ghcr.io/openzipkin/zipkin:latest
     container_name: zipkin
     ports:
       - "9411:9411"
+    networks:
+      - substrax-network
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
     networks:
       - substrax-network
 
@@ -70,7 +93,6 @@ services:
     networks:
       - substrax-network
 
-
   schema-registry:
     image: confluentinc/cp-schema-registry:7.6.1
     container_name: schema-registry
@@ -84,6 +106,64 @@ services:
     networks:
       - substrax-network
 
+  # ------------------------------------------------------------------------------
+  # Services
+  # ------------------------------------------------------------------------------
+  payment-orchestrator:
+    container_name: payment-orchestrator
+    build:
+      context: ../../services/payment-orchestrator
+      dockerfile: Dockerfile
+    image: substrax/payment-orchestrator:latest
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+    depends_on:
+      - eureka-server
+      - kafka
+      - redis
+      - payment-db
+    networks:
+      - substrax-network
+
+
+  # ------------------------------------------------------------------------------
+  # DB
+  # ------------------------------------------------------------------------------
+  keycloak-db:
+    image: postgres:16
+    container_name: keycloak-db
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+    volumes:
+      - keycloak_db_data:/var/lib/postgresql/data
+    networks:
+      - substrax-network
+
+
+  payment-db:
+    image: postgres:16
+    container_name: payment-db
+    environment:
+      POSTGRES_DB: paymentdb
+      POSTGRES_USER: paymentuser
+      POSTGRES_PASSWORD: paymentpass
+    ports:
+      - "5436:5432"
+    volumes:
+      - payment_db_data:/var/lib/postgresql/data
+    networks:
+      - substrax-network
+
+
+volumes:
+  payment_db_data:
+  keycloak_db_data:
 
 networks:
   substrax-network:

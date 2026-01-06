@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/common/common-exception/pom.xml" />
         <option value="$PROJECT_DIR$/common/common-observability/pom.xml" />
         <option value="$PROJECT_DIR$/common/common-auth/pom.xml" />
+        <option value="$PROJECT_DIR$/services/payment-orchestrator/pom.xml" />
       </list>
     </option>
   </component>

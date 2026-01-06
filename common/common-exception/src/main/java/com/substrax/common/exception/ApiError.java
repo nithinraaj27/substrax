@@ -15,7 +15,7 @@ public class ApiError {
         this.message = message;
         this.traceId = traceId;
         this.path = path;
-        this.timeStamp = timeStamp;
+        this.timeStamp = getTimeStamp();
     }
 
     public ErrorCode getErrorCode() {

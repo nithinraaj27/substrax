@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
         <module name="common-observability" />
+        <module name="payment-orchestrator" />
         <module name="eureka-server" />
         <module name="common-exception" />
         <module name="common-auth" />
@@ -18,6 +19,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
+      <module name="payment-orchestrator" options="-parameters" />
     </option>
   </component>
 </project>
