@@ -1,10 +1,14 @@
 package com.substrax.paymentorchestrator.idempotency;
 
+import com.substrax.paymentorchestrator.dto.IdempotencyDecision;
+
 import java.util.Optional;
 
 public interface IdempotencyService {
 
-    Optional<IdempotencyRecord> get(String key);
+    IdempotencyDecision validateAndRegister(String idempotencyKey, String requestHash);
 
-    void save(String key, IdempotencyRecord record);
+    void markCompleted(String idempotencyKey, String status, String message);
+
+    void markFailed(String idempotencyKey);
 }

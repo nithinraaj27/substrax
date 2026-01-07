@@ -1,17 +1,16 @@
 package com.substrax.paymentorchestrator.controller;
 
 import com.substrax.common.exception.ApiException;
+import com.substrax.paymentorchestrator.dto.IdempotencyDecision;
 import com.substrax.paymentorchestrator.dto.PaymentInitiateRequest;
 import com.substrax.paymentorchestrator.dto.PaymentInitiateResponse;
 import com.substrax.paymentorchestrator.entity.PaymentStatus;
-import com.substrax.paymentorchestrator.idempotency.IdempotencyRecord;
 import com.substrax.paymentorchestrator.idempotency.IdempotencyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/payments")
@@ -21,11 +20,10 @@ public class PaymentController {
     private final IdempotencyService idempotencyService;
 
     @PostMapping("/initiate")
-    public ResponseEntity<PaymentInitiateResponse> intiatePayment(
-            @RequestHeader(value = "Idempotency-Key", required = true) String idempotencyKey,
+    public ResponseEntity<PaymentInitiateResponse> initiatePayment(
+            @RequestHeader("Idempotency-Key") String idempotencyKey,
             @Valid @RequestBody PaymentInitiateRequest request
-    ){
-
+    ) {
         if (idempotencyKey == null || idempotencyKey.isBlank()) {
             throw new ApiException("Idempotency-Key header is required");
         }
@@ -34,39 +32,40 @@ public class PaymentController {
             throw new ApiException("Amount must be greater than zero");
         }
 
-//        return ResponseEntity.ok(new PaymentInitiateResponse(
-//                UUID.randomUUID().toString(),
-//                "INITIATED",
-//                "Hardcoded test"
-//        ));
+        String requestHash = DigestUtils.sha256Hex(
+                "POST|/payments/initiate|" +
+                        request.amount() + "|" +
+                        request.currency() + "|" +
+                        request.userId()
+        );
 
-        return idempotencyService.get(idempotencyKey)
-                .map(record -> ResponseEntity.ok(
-                        new PaymentInitiateResponse(
-                                record.transactionId(),
-                                record.status(),
-                                record.message()
-                        )
-                ))
-                .orElseGet(() -> {
-                    String transactionID = UUID.randomUUID().toString();
+        IdempotencyDecision decision =
+                idempotencyService.validateAndRegister(idempotencyKey, requestHash);
 
-                    PaymentInitiateResponse response = new PaymentInitiateResponse(
-                            transactionID,
+        // 🔁 REPLAY
+        if (!decision.isNewRequest()) {
+            return ResponseEntity.ok(
+                    new PaymentInitiateResponse(
+                            decision.transactionId(),
                             PaymentStatus.INITIATED.name(),
-                            "Payment initiated successfully"
-                    );
+                            "This request was already processed. Returning existing transaction."
+                    )
+            );
+        }
 
-                    idempotencyService.save(
-                            idempotencyKey,
-                            new IdempotencyRecord(
-                                    transactionID,
-                                    PaymentStatus.INITIATED.name(),
-                                    "This payment was already initiated"
-                            )
-                    );
+        // ▶️ FIRST TIME
+        idempotencyService.markCompleted(
+                idempotencyKey,
+                PaymentStatus.INITIATED.name(),
+                "Payment Initiated Successfully"
+        );
 
-                    return ResponseEntity.ok(response);
-                });
+        return ResponseEntity.ok(
+                new PaymentInitiateResponse(
+                        decision.transactionId(),
+                        PaymentStatus.INITIATED.name(),
+                        "Payment Initiated Successfully"
+                )
+        );
     }
 }

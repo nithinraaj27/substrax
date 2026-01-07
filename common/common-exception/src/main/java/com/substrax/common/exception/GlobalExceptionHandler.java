@@ -18,6 +18,7 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    // 1. Handle all custom business exceptions (NotFound, Conflict, ServiceUnavailable, etc.)
     @ExceptionHandler(value = BaseException.class)
     public ResponseEntity<ApiError> handleBaseException(BaseException ex, HttpServletRequest request){
         ApiError error = new ApiError(
@@ -30,7 +31,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, ex.getStatus());
     }
 
-    // ✅ 1. VALIDATION ERRORS (THIS FIXES YOUR 500)
+    // 2. Handle Validation Error  (Missing Field in the JSON)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleValidationException(
             MethodArgumentNotValidException ex,
@@ -52,12 +53,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-    // ✅ 2. FALLBACK (KEEP AS-IS)
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> handleUnexpectedException(Exception ex,HttpServletRequest request) {
+    public ResponseEntity<ApiError> handleUnexpectedException(Exception ex, HttpServletRequest request) {
+        // THIS IS THE MISSING LINK: It prints the error to your 'docker logs'
+        log.error("CRITICAL: Unexpected error caught in GlobalExceptionHandler [TraceID: {}]", getTraceId(), ex);
+
         ApiError error = new ApiError(
                 ErrorCode.INTERNAL_ERROR,
-                "Unexpected internal error",
+                "Internal Error: " + ex.getMessage(), // Let's see the message in Postman for now
                 getTraceId(),
                 request.getRequestURI()
         );
@@ -77,6 +80,19 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IdempotencyConflictException.class)
+    public ResponseEntity<ApiError> handleConflictException(IdempotencyConflictException ex, HttpServletRequest request)
+    {
+        ApiError apiError = new ApiError(
+                ex.getErrorCode(),
+                ex.getMessage(),
+                getTraceId(),
+                request.getRequestURI()
+        );
+
+        return new ResponseEntity<>(apiError, ex.getStatus());
     }
 
     private String getTraceId() {
