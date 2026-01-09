@@ -28,7 +28,7 @@ public class IdempotencyServiceImpl implements IdempotencyService {
         IdempotencyRecord existing =
                 redisTemplate.opsForValue().get(idempotencyKey);
 
-        // ✅ FIRST REQUEST
+        // FIRST REQUEST
         if (existing == null) {
             String transactionId = UUID.randomUUID().toString();
 
@@ -46,7 +46,7 @@ public class IdempotencyServiceImpl implements IdempotencyService {
             );
         }
 
-        // ❌ SAME KEY, DIFFERENT PAYLOAD
+        // SAME KEY, DIFFERENT PAYLOAD
         if (existing.requestHash() == null ||
                 !existing.requestHash().equals(requestHash)) {
 

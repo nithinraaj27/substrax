@@ -41,20 +41,16 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
-
     volumes:
       - ./infra/keycloak/realm-export:/opt/keycloak/data/import
-
     depends_on:
       - keycloak-db
     networks:
       - substrax-network
-
 
   zipkin:
     image: ghcr.io/openzipkin/zipkin:latest
@@ -122,8 +118,6 @@ services:
       - "8082:8082"
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATA_REDIS_HOST: redis
-      SPRING_DATA_REDIS_PORT: 6379
     depends_on:
       - eureka-server
       - kafka
@@ -132,9 +126,25 @@ services:
     networks:
       - substrax-network
 
+  fraud-service:
+    container_name: fraud-service
+    build:
+      context: ../../services/fraud-service
+      dockerfile: Dockerfile
+    image: substrax/fraud-service:latest
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    depends_on:
+      - eureka-server
+      - kafka
+      - redis
+    networks:
+      - substrax-network
 
   # ------------------------------------------------------------------------------
-  # DB
+  # Databases
   # ------------------------------------------------------------------------------
   keycloak-db:
     image: postgres:16
@@ -147,7 +157,6 @@ services:
       - keycloak_db_data:/var/lib/postgresql/data
     networks:
       - substrax-network
-
 
   payment-db:
     image: postgres:16
@@ -163,7 +172,9 @@ services:
     networks:
       - substrax-network
 
-
+# ------------------------------------------------------------------------------
+# Volumes
+# ------------------------------------------------------------------------------
 volumes:
   kafka_data:
   payment_db_data:

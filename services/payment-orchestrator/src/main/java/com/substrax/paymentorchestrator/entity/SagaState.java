@@ -9,7 +9,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "saga_state",
         indexes = {
-            @Index(name = "idx_saga_transaction_id", columnList = "transaction_id"),
+                @Index(name = "idx_saga_transaction_id", columnList = "transaction_id"),
                 @Index(name = "idx_saga_current_state", columnList = "current_state")
         }
 )
@@ -21,9 +21,6 @@ import java.util.UUID;
 public class SagaState {
 
     @Id
-    @Column(name="saga_id", nullable = false)
-    private UUID sagaId;
-
     @Column(name = "transaction_id", nullable = false)
     private UUID transactionId;
 

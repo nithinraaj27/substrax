@@ -1,0 +1,42 @@
+{
+  "type": "record",
+  "name": "PaymentEvent",
+  "namespace": "com.substrax.events.payment",
+  "fields": [
+    { "name": "event_id", "type": "string" },
+    {
+      "name": "event_type",
+      "type": {
+        "type": "enum",
+        "name": "PaymentEventType",
+        "symbols": [
+          "INITIATED",
+          "FRAUD_APPROVED",
+          "FRAUD_REJECTED",
+          "PAYMENT_SUCCESS",
+          "PAYMENT_FAILED"
+        ]
+      }
+    },
+    { "name": "transaction_id", "type": "string" },
+    { "name": "subscription_id", "type": "string" },
+    { "name": "user_id", "type": "string" },
+    { "name": "amount", "type": "double" },
+    { "name": "currency", "type": "string" },
+    {
+      "name": "provider",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "failure_reason",
+      "type": ["null", "string"],
+      "default": null
+    },
+    {
+      "name": "event_time",
+      "type": "long",
+      "doc": "Epoch milliseconds"
+    }
+  ]
+}

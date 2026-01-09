@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/common/common-observability/pom.xml" />
         <option value="$PROJECT_DIR$/common/common-auth/pom.xml" />
         <option value="$PROJECT_DIR$/services/payment-orchestrator/pom.xml" />
+        <option value="$PROJECT_DIR$/services/fraud-service/pom.xml" />
       </list>
     </option>
   </component>
