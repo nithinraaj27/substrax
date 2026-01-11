@@ -54,6 +54,10 @@ public class PaymentTransaction {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "parent_transaction_id")
+    private UUID parentTransactionId;
+
+
     @PrePersist
     void onCreate() {
         this.createdAt = LocalDateTime.now();

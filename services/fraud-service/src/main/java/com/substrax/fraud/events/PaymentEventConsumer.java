@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -22,6 +23,7 @@ public class PaymentEventConsumer {
     private final FraudDecisionService fraudDecisionService;
     private final FraudEventProducer fraudEventProducer;
 
+    @Transactional
     @KafkaListener(
             topics = "payment-events",
             groupId = "fraud-service-group"

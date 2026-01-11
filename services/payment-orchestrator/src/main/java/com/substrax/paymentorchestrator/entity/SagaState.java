@@ -25,7 +25,8 @@ public class SagaState {
     private UUID transactionId;
 
     @Column(name = "current_state", nullable = false, length = 30)
-    private String currentState;
+    @Enumerated(EnumType.STRING)
+    private SagaStatus currentState;
 
     @Column(name = "last_event", length = 30)
     private String lastEvent;
@@ -36,17 +37,41 @@ public class SagaState {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name= "updated_at", nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "retry_count", nullable = false)
+    private int retryCount;
+
+    // -------------------------
+    // Domain behavior (REQUIRED)
+    // -------------------------
+
+    public void incrementRetryCount() {
+        this.retryCount++;
+    }
+
+    public void markRetrying() {
+        this.currentState = SagaStatus.RETRYING;
+    }
+
+    public void markFailedTimeout() {
+        this.currentState = SagaStatus.FAILED_TIMEOUT;
+        this.compensationRequired = true;
+    }
+
+    public boolean hasExceededRetries(int maxRetries) {
+        return this.retryCount >= maxRetries;
+    }
+
     @PrePersist
-    void onCreate(){
+    void onCreate() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = this.createdAt;
     }
 
     @PreUpdate
-    void onUpdate(){
+    void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
 }

@@ -3,6 +3,8 @@ package com.substrax.fraud.serviceImpl;
 import com.substrax.fraud.dto.FraudDecision;
 import com.substrax.fraud.dto.FraudResult;
 import com.substrax.fraud.service.FraudDecisionService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -24,6 +26,8 @@ public class FraudDecisionServiceImpl implements FraudDecisionService {
 
     private final StringRedisTemplate redisTemplate;
 
+    @Retry(name="fraudService", fallbackMethod = "fraudFallback")
+    @CircuitBreaker(name="fraudService", fallbackMethod = "fraudFallback")
     @Override
     public FraudResult evaluate(String transactionId, String userId, BigDecimal amount) {
 
@@ -57,7 +61,12 @@ public class FraudDecisionServiceImpl implements FraudDecisionService {
         // 4 Approve
         redisTemplate.opsForValue().set(txKey, "PROCESSED", TX_TTL);
 
-        return new FraudResult(transactionId, FraudDecision.APPROVED, "CLEAN" );
+        FraudResult result = new FraudResult(transactionId, FraudDecision.APPROVED, "CLEAN" );
+        log.info(
+                "Fraud decision={} txId={} userId={} amount={}",
+                result.decision(), transactionId, userId, amount
+        );
+        return result;
     }
 
     private FraudResult reject(String transactionId, String reason)
@@ -68,5 +77,22 @@ public class FraudDecisionServiceImpl implements FraudDecisionService {
 
         return new FraudResult(transactionId, FraudDecision.REJECTED, reason);
 
+    }
+
+    public FraudResult fraudFallback(
+            String transactionId,
+            String userId,
+            BigDecimal amount,
+            Exception ex
+    ) {
+        log.error("Fraud retry exhausted / circuit open txId={}", transactionId, ex);
+
+        // IMPORTANT: do NOT approve or reject
+        // Let orchestrator timeout logic handle it
+        return new FraudResult(
+                transactionId,
+                FraudDecision.PENDING,
+                "FRAUD_SERVICE_UNAVAILABLE"
+        );
     }
 }

@@ -8,4 +8,6 @@ public interface PaymentSagaService {
     void onFraudApproved(PaymentEvent event);
 
     void onFraudRejected(PaymentEvent event);
+
+    public void retryTimeoutSagas();
 }

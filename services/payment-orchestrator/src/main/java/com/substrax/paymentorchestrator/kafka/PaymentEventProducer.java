@@ -1,13 +1,13 @@
 package com.substrax.paymentorchestrator.kafka;
 
 import com.substrax.events.payment.PaymentEvent;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -18,6 +18,8 @@ public class PaymentEventProducer {
 
     private final KafkaTemplate<String, PaymentEvent> kafkaTemplate;
 
+    @Retry(name = "paymentProducer", fallbackMethod = "sendFallback")
+    @CircuitBreaker(name = "paymentProducer", fallbackMethod = "sendFallback")
     public void send(PaymentEvent event)
     {
         kafkaTemplate.send(TOPIC, event.getTransactionId().toString(), event).whenComplete( (result, ex) ->{
@@ -28,6 +30,17 @@ public class PaymentEventProducer {
                 log.error("Failed to send event", ex);
             }
         });
+    }
+
+
+    public void sendFallback(PaymentEvent event, Exception ex) {
+        log.error(
+                "Kafka unavailable. Payment event NOT sent. txId={} eventType={}",
+                event.getTransactionId(),
+                event.getEventType(),
+                ex
+        );
+        // DO NOTHING — saga timeout will handle
     }
 
 }

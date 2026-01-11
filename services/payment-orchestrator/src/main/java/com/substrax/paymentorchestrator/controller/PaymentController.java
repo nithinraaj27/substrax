@@ -100,4 +100,17 @@ public class PaymentController {
                 )
         );
     }
+
+    @PostMapping("/{txId}/retry")
+    public ResponseEntity<?> retry(@PathVariable UUID txId) {
+        paymentService.retryPayment(txId);
+        PaymentStatus status = paymentService.getPaymentStatus(txId.toString());
+        return ResponseEntity.ok(
+                new PaymentInitiateResponse(
+                        txId.toString(),
+                        status.name(),
+                        "Retry Payment Successfull"
+                )
+        );
+    }
 }

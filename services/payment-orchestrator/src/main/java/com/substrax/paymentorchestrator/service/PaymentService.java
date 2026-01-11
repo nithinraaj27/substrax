@@ -11,4 +11,6 @@ public interface PaymentService {
     UUID initiatePayment(PaymentInitiateRequest request, String idempotencyKey);
 
     PaymentStatus getPaymentStatus(String transactionId);
+
+    void retryPayment(UUID txId);
 }
