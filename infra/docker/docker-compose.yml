@@ -143,6 +143,30 @@ services:
     networks:
       - substrax-network
 
+  ledger-service:
+    container_name: ledger-service
+    build:
+      context: ../../services/ledger-service
+      dockerfile: Dockerfile
+    image: substrax/ledger-service:latest
+    ports:
+      - "8084:8084"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      LEDGER_EXPORT_LOCAL_PATH: /data/ledger
+      AWS_REGION: eu-north-1
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+    depends_on:
+      - eureka-server
+      - kafka
+      - schema-registry
+      - ledger-db
+    networks:
+      - substrax-network
+    volumes:
+      - ./ledger-data:/data/ledger
+
   # ------------------------------------------------------------------------------
   # Databases
   # ------------------------------------------------------------------------------
@@ -172,6 +196,20 @@ services:
     networks:
       - substrax-network
 
+  ledger-db:
+    image: postgres:16
+    container_name: ledger-db
+    environment:
+      POSTGRES_DB: ledgerdb
+      POSTGRES_USER: ledgeruser
+      POSTGRES_PASSWORD: ledgerpass
+    ports:
+      - "5437:5432"
+    volumes:
+      - ledger_db_data:/var/lib/postgresql/data
+    networks:
+      - substrax-network
+
 # ------------------------------------------------------------------------------
 # Volumes
 # ------------------------------------------------------------------------------
@@ -179,6 +217,7 @@ volumes:
   kafka_data:
   payment_db_data:
   keycloak_db_data:
+  ledger_db_data:
 
 networks:
   substrax-network:

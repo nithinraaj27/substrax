@@ -1,0 +1,5 @@
+ALTER TABLE ledger_entries
+    ADD COLUMN raw_event JSONB NOT NULL,
+    ADD COLUMN exported BOOLEAN NOT NULL DEFAULT FALSE,
+    ADD COLUMN exported_at TIMESTAMP,
+    ADD COLUMN batch_id VARCHAR(64);

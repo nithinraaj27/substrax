@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @Import(com.substrax.common.exception.GlobalExceptionHandler.class)
 public class PaymentOrchestratorApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(PaymentOrchestratorApplication.class, args);
     }

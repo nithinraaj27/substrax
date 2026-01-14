@@ -1,10 +1,13 @@
 package com.substrax.paymentorchestrator.serviceimpl;
 
+import com.substrax.events.ledger.LedgerEvent;
+import com.substrax.events.ledger.LedgerEventType;
 import com.substrax.events.payment.PaymentEvent;
 import com.substrax.events.payment.PaymentEventType;
 import com.substrax.paymentorchestrator.entity.PaymentStatus;
 import com.substrax.paymentorchestrator.entity.SagaState;
 import com.substrax.paymentorchestrator.entity.SagaStatus;
+import com.substrax.paymentorchestrator.kafka.LedgerEventProducer;
 import com.substrax.paymentorchestrator.kafka.PaymentEventProducer;
 import com.substrax.paymentorchestrator.repository.PaymentTransactionRepository;
 import com.substrax.paymentorchestrator.repository.SagaStateRepository;
@@ -12,6 +15,7 @@ import com.substrax.paymentorchestrator.service.PaymentSagaService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -28,22 +32,65 @@ public class PaymentSagaServiceImpl implements PaymentSagaService {
     private final PaymentTransactionRepository paymentTransactionRepository;
     private final SagaStateRepository sagaStateRepository;
     private final PaymentEventProducer paymentEventProducer;
+    private final LedgerEventProducer ledgerEventProducer;
 
     private static final int MAX_RETRIES = 3;
     private static final Duration TIMEOUT_DURATION = Duration.ofMinutes(3);
 
+    @Transactional
     @Override
     public void onFraudApproved(PaymentEvent event) {
+
         UUID txId = UUID.fromString(event.getTransactionId().toString());
 
         SagaState saga = sagaStateRepository.findByTransactionId(txId).orElseThrow();
 
+        // Late / duplicate event protection
+        if (saga.getCurrentState() == SagaStatus.COMPLETED ||
+                saga.getCurrentState() == SagaStatus.FAILED ||
+                saga.getCurrentState() == SagaStatus.FAILED_TIMEOUT) {
+
+            log.warn("Ignoring late FRAUD_APPROVED for txId={} sagaState={}",
+                    txId, saga.getCurrentState());
+            return;
+        }
+
+        // 1 Update Saga
         saga.setCurrentState(SagaStatus.COMPLETED);
         saga.setLastEvent(PaymentEventType.FRAUD_APPROVED.name());
         saga.setCompensationRequired(false);
         sagaStateRepository.save(saga);
 
+        // 2. Update payment transaction to FINAL SUCCESS
+        int updated = paymentTransactionRepository.updateStatus(
+                txId,
+                PaymentStatus.INITIATED.name(),
+                PaymentStatus.COMPLETED.name()
+        );
         log.info("Payment Approved and Saved {}", event.getTransactionId());
+
+
+        if (updated == 0) {
+            log.warn("Payment already finalized, skipping ledger event. txId={}", txId);
+            return;
+        }
+
+        // 3. Emit Ledger Event
+        LedgerEvent ledgerEvent = LedgerEvent.newBuilder()
+                .setEventId(UUID.randomUUID().toString())
+                .setEventType(LedgerEventType.LEDGER_DEBIT)
+                .setLedgerId(event.getUserId())
+                .setTransactionId(event.getTransactionId().toString())
+                .setUserId(event.getUserId())
+                .setAmount(event.getAmount())
+                .setCurrency(event.getCurrency())
+                .setReference("PAYMENT_SUCCESS")
+                .setEventTime(Instant.now().toEpochMilli())
+                .build();
+
+        ledgerEventProducer.publish(ledgerEvent);
+
+        log.info("Event Produced to ledger-event topic {}", ledgerEvent.getEventId());
     }
 
     @Transactional
@@ -52,9 +99,20 @@ public class PaymentSagaServiceImpl implements PaymentSagaService {
 
         UUID txId = UUID.fromString(event.getTransactionId().toString());
 
-        //1 Update SAGA
-        SagaState saga = sagaStateRepository.findByTransactionId(txId).orElseThrow();
+        SagaState saga = sagaStateRepository.findByTransactionId(txId).orElseThrow(
+                () -> new IllegalArgumentException("Illegal Transaction ID"));
 
+        // Late / duplicate event protection
+        if (saga.getCurrentState() == SagaStatus.COMPLETED ||
+                saga.getCurrentState() == SagaStatus.FAILED ||
+                saga.getCurrentState() == SagaStatus.FAILED_TIMEOUT) {
+
+            log.warn("Ignoring late FRAUD_REJECTED for txId={} sagaState={}",
+                    txId, saga.getCurrentState());
+            return;
+        }
+
+        //1 Update SAGA
         saga.setCurrentState(SagaStatus.FAILED);
         saga.setLastEvent(PaymentEventType.FRAUD_REJECTED.name());
         saga.setCompensationRequired(true);
@@ -63,11 +121,15 @@ public class PaymentSagaServiceImpl implements PaymentSagaService {
         log.info("Payment Rejected and Compensation will be given {}", event.getTransactionId());
 
         // 2 Update payment transaction
-        int updated = paymentTransactionRepository.updateStatus(txId,PaymentStatus.FAILED.name(), event.getFailureReason().toString());
+        int updated = paymentTransactionRepository.updateStatus(
+                txId,
+                PaymentStatus.INITIATED.name(),   // currentStatus (MUST MATCH DB)
+                PaymentStatus.FAILED.name()      // newStatus
+        );
 
         if(updated == 0)
         {
-            log.warn("Payment already moved out of INITIATED, txId={}", txId);
+            log.warn("Payment already finalized, txId={}", txId);
             return;
         }
 
@@ -86,7 +148,6 @@ public class PaymentSagaServiceImpl implements PaymentSagaService {
                 .build();
 
         paymentEventProducer.send(failedEvent);
-
     }
 
     @Transactional

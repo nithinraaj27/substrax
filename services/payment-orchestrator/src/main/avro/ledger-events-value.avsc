@@ -1,0 +1,52 @@
+{
+  "type": "record",
+  "name": "LedgerEvent",
+  "namespace": "com.substrax.events.ledger",
+  "fields": [
+    {
+      "name": "event_id",
+      "type": "string"
+    },
+    {
+      "name": "event_type",
+      "type": {
+        "type": "enum",
+        "name": "LedgerEventType",
+        "symbols": [
+          "LEDGER_DEBIT",
+          "LEDGER_CREDIT",
+          "LEDGER_REFUND"
+        ]
+      }
+    },
+    {
+      "name": "ledger_id",
+      "type": "string"
+    },
+    {
+      "name": "transaction_id",
+      "type": "string"
+    },
+    {
+      "name": "user_id",
+      "type": "string"
+    },
+    {
+      "name": "amount",
+      "type": "double"
+    },
+    {
+      "name": "currency",
+      "type": "string"
+    },
+    {
+      "name": "reference",
+      "type": "string"
+    },
+    {
+      "name": "event_time",
+      "type": "long",
+      "doc": "Epoch milliseconds"
+    }
+  ]
+}
