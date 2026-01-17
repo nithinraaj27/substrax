@@ -1,0 +1,1 @@
+{"amount": 5000.0, "user_id": "11111111-1111-1111-1111-111111111111", "currency": "INR", "event_id": "48e51124-d28d-4e0f-869c-61581f82042d", "ledger_id": "11111111-1111-1111-1111-111111111111", "reference": "PAYMENT_SUCCESS", "event_time": 1768535711394, "event_type": "LEDGER_DEBIT", "transaction_id": "867fa844-aa99-4314-9c84-df9ca0e5c5b6"}

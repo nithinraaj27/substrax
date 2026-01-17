@@ -92,6 +92,22 @@ services:
     networks:
       - substrax-network
 
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8086:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: substrax-cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
+    depends_on:
+      - kafka
+      - schema-registry
+    restart: unless-stopped
+    networks:
+      - substrax-network
+
   schema-registry:
     image: confluentinc/cp-schema-registry:7.6.1
     container_name: schema-registry
@@ -102,6 +118,23 @@ services:
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
+    networks:
+      - substrax-network
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    ports:
+      - "3000:3000"
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: metabase
+      MB_DB_PORT: 5432
+      MB_DB_USER: metabase
+      MB_DB_PASS: metabase
+      MB_DB_HOST: metabase-db
+    depends_on:
+      - metabase-db
     networks:
       - substrax-network
 
@@ -210,6 +243,18 @@ services:
     networks:
       - substrax-network
 
+  metabase-db:
+    image: postgres:15
+    container_name: metabase-db
+    environment:
+      POSTGRES_DB: metabase
+      POSTGRES_USER: metabase
+      POSTGRES_PASSWORD: metabase
+    volumes:
+      - metabase_db_data:/var/lib/postgresql/data
+    networks:
+      - substrax-network
+
 # ------------------------------------------------------------------------------
 # Volumes
 # ------------------------------------------------------------------------------
@@ -218,6 +263,7 @@ volumes:
   payment_db_data:
   keycloak_db_data:
   ledger_db_data:
+  metabase_db_data:
 
 networks:
   substrax-network:

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.substrax.events.ledger.LedgerEvent;
 import com.substrax.ledger.entity.LedgerEntry;
 import com.substrax.ledger.repository.LedgerRepository;
+import com.substrax.ledger.scheduler.LedgerBatchScheduler;
 import com.substrax.ledger.util.AvroJsonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -20,6 +21,7 @@ public class LedgerEventConsumer {
 
     private final LedgerRepository repository;
     private final ObjectMapper objectMapper;
+    private final LedgerBatchScheduler scheduler;
 
     @KafkaListener(
             topics = "ledger-events",
@@ -49,5 +51,6 @@ public class LedgerEventConsumer {
         entry.setRawEvent(rawJson);
 
         repository.save(entry);
+        scheduler.onLedgerInserted();
     }
 }

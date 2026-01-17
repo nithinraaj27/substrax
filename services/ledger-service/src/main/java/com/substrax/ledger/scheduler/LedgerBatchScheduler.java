@@ -1,64 +1,69 @@
-package com.substrax.ledger.scheduler;
+    package com.substrax.ledger.scheduler;
 
-import com.substrax.ledger.entity.LedgerEntry;
-import com.substrax.ledger.files.LedgerLocalFileWriter;
-import com.substrax.ledger.files.LedgerS3Uploader;
-import com.substrax.ledger.repository.LedgerRepository;
-import jakarta.transaction.TransactionScoped;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+    import com.substrax.ledger.dto.LedgerBatchMetadata;
+    import com.substrax.ledger.entity.LedgerEntry;
+    import com.substrax.ledger.files.LedgerLocalFileWriter;
+    import com.substrax.ledger.files.LedgerManifestWriter;
+    import com.substrax.ledger.files.LedgerS3Uploader;
+    import com.substrax.ledger.repository.LedgerRepository;
+    import jakarta.transaction.Transactional;
+    import lombok.RequiredArgsConstructor;
+    import lombok.extern.slf4j.Slf4j;
+    import org.springframework.data.domain.PageRequest;
+    import org.springframework.scheduling.annotation.Scheduled;
+    import org.springframework.stereotype.Service;
 
-import java.nio.file.Path;
-import java.util.List;
+    import java.io.IOException;
+    import java.nio.file.Path;
+    import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-@Slf4j
-public class LedgerBatchScheduler {
+    @Service
+    @RequiredArgsConstructor
+    @Slf4j
+    public class LedgerBatchScheduler {
 
-    private final LedgerRepository ledgerRepository;
-    private final LedgerLocalFileWriter fileWriter;
-    private final LedgerS3Uploader s3Uploader;
+        private final LedgerRepository ledgerRepository;
+        private final LedgerLocalFileWriter fileWriter;
+        private final LedgerS3Uploader s3Uploader;
+        private final LedgerManifestWriter manifestWriter;
 
-    @Transactional
-    @Scheduled(fixedDelay = 60000)
-    public void createBatch()
-    {
-        List<LedgerEntry> entries = ledgerRepository.findTop5ByRawEventIsNotNullAndExportedFalseOrderByCreatedAtAsc();
+        private static final int BATCH_SIZE = 6;
 
-        if(entries.isEmpty())
-        {
-            return;
+        @Transactional
+        public void onLedgerInserted(){
+
+            List<LedgerEntry> entries =
+                    ledgerRepository.findNextUnbatchedForUpdate(
+                            PageRequest.of(0, BATCH_SIZE)
+                    );
+
+            if(entries.size() < BATCH_SIZE)
+            {
+                return;
+            }
+
+            String batchId = "LEDGER-BATCH-" + System.currentTimeMillis();
+
+            entries.forEach(e -> e.setBatchId(batchId));
+            ledgerRepository.saveAll(entries);
+
+            LedgerBatchMetadata meta = fileWriter.writeBatchToFile(batchId);
+
+            Path manifest = null;
+            try {
+                manifest = manifestWriter.writeManifest(meta);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            s3Uploader.upload(meta.getDataFile());
+            s3Uploader.upload(manifest);
+
+            log.info(
+                    "Ledger batch {} exported. Records={}, Hash={}",
+                    batchId,
+                    meta.getRecordCount(),
+                    meta.getSha256()
+            );
         }
-
-        String batchId = "LEDGER-BATCH-"+ System.currentTimeMillis();
-
-        for(LedgerEntry entry: entries)
-        {
-            entry.setBatchId(batchId);
-        }
-
-        ledgerRepository.saveAll(entries);
-
-        log.info("Ledger Batch created: {} with {} entries", batchId, entries.size());
     }
-
-
-    @Scheduled(fixedDelay = 90000)
-    @Transactional
-    public void prepareBatchFile(){
-
-        List<String> batchIds = ledgerRepository.findDistinctUnexportedBatchIds();
-
-        for(String batchId: batchIds)
-        {
-            Path file = fileWriter.writeBatchToFile(batchId);
-            s3Uploader.upload(file);
-            ledgerRepository.markBatchExported(batchId);
-            log.info("Ledger batch {} marked as exported", batchId);
-        }
-    }
-}

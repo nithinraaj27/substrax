@@ -1,0 +1,9 @@
+{
+  "sha256" : "ca8a2bfaf0124f7e11813249e517d821853e80294275048e0db4b90922f1a633",
+  "currency" : "INR",
+  "totalAmount" : 25000.00,
+  "createdAt" : "2026-01-17T05:46:20.284024839Z",
+  "fileName" : "ledger-LEDGER-BATCH-1768628780251-1768628780278.json",
+  "batchId" : "LEDGER-BATCH-1768628780251",
+  "recordCount" : 5
+}

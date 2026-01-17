@@ -1,11 +1,14 @@
 package com.substrax.ledger.repository;
 
 import com.substrax.ledger.entity.LedgerEntry;
+import jakarta.persistence.LockModeType;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -35,6 +38,16 @@ public interface LedgerRepository extends JpaRepository<LedgerEntry, Long> {
             WHERE l.batchId = :batchId
         """)
     void markBatchExported(@Param("batchId") String batchId);
+
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("""
+            SELECT l FROM LedgerEntry l
+            WHERE l.batchId IS NULL
+            AND l.exported = false
+            ORDER BY l.createdAt ASC
+        """)
+    List<LedgerEntry> findNextUnbatchedForUpdate(Pageable pageable);
 
 
 
