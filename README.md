@@ -276,7 +276,7 @@ Ensure the following are installed:
 From the **root of the repository**:
 
 ```bash
-cd substrax-platform
+cd substrax-platform/infra/docker
 ```
 
 - Start all core services:
