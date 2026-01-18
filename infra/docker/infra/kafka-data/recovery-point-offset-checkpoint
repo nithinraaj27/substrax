@@ -2,7 +2,7 @@
 59
 __consumer_offsets 13 0
 __consumer_offsets 46 0
-__consumer_offsets 9 232
+__consumer_offsets 9 265
 __consumer_offsets 42 0
 __consumer_offsets 21 0
 __consumer_offsets 17 0
@@ -13,7 +13,7 @@ __consumer_offsets 38 0
 __consumer_offsets 1 0
 __consumer_offsets 34 0
 __consumer_offsets 16 0
-_schemas 0 90
+_schemas 0 2
 __consumer_offsets 45 0
 __consumer_offsets 12 0
 __consumer_offsets 41 0
@@ -22,16 +22,16 @@ notification-events 0 0
 __consumer_offsets 20 0
 __consumer_offsets 49 0
 __consumer_offsets 0 0
-__consumer_offsets 29 85
+__consumer_offsets 29 92
 __consumer_offsets 25 0
 __consumer_offsets 8 0
 __consumer_offsets 37 0
-ledger-events 0 60
+ledger-events 0 64
 dead-letter-events 0 0
 __consumer_offsets 4 0
 __consumer_offsets 33 0
 __consumer_offsets 15 0
-__consumer_offsets 48 543
+__consumer_offsets 48 581
 __consumer_offsets 11 0
 __consumer_offsets 44 0
 __consumer_offsets 23 0
@@ -40,7 +40,7 @@ __consumer_offsets 19 0
 __consumer_offsets 32 0
 __consumer_offsets 28 0
 __consumer_offsets 7 0
-ledger-events 1 53
+ledger-events 1 59
 __consumer_offsets 40 0
 __consumer_offsets 3 0
 __consumer_offsets 36 0
@@ -51,11 +51,11 @@ __consumer_offsets 10 0
 notification-events 2 0
 __consumer_offsets 22 0
 __consumer_offsets 18 0
-payment-events 0 434
+payment-events 0 464
 __consumer_offsets 31 0
 __consumer_offsets 27 0
-__consumer_offsets 39 552
-ledger-events 2 57
+__consumer_offsets 39 594
+ledger-events 2 67
 __consumer_offsets 6 0
-__consumer_offsets 35 0
+__consumer_offsets 35 35
 __consumer_offsets 2 0

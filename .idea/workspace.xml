@@ -5,32 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b72e5acc-03a4-409c-abaf-ec7a1a2ce292" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/infra/airflow/dags/ledger_batch_pipeine.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infra/airflow/docker-compose-airflow.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/dto/LedgerBatchMetadata.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/entity/LedgerReconciliation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/enusms/ReconciliationStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/files/LedgerManifestWriter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/implementation/LedgerReconciliationServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/repository/LedgerReconciliationRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/service/LedgerReconciliationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/ledger-service/src/main/resources/db/migration/V4__create_ledger_reconciliation_table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/payment-orchestrator/src/main/java/com/substrax/paymentorchestrator/service/LedgerEventService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/payment-orchestrator/src/main/java/com/substrax/paymentorchestrator/serviceimpl/LedgerServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/fraud-service/src/main/java/com/substrax/fraud/config/KafkaConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/config/KafkaConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/src/main/java/com/substrax/notificationservice/NotificationServiceApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/src/main/java/com/substrax/notificationservice/config/KafkaConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/src/main/java/com/substrax/notificationservice/dto/NotificationStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/src/main/java/com/substrax/notificationservice/entity/NotificationEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/src/main/java/com/substrax/notificationservice/implementaion/NotificationServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/src/main/java/com/substrax/notificationservice/kafka/PaymentEventConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/src/main/java/com/substrax/notificationservice/repository/NotificationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/src/main/java/com/substrax/notificationservice/service/NotificationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/notification-service/src/main/resources/db/migration/V1__create_notification_tables.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/services/payment-orchestrator/src/main/java/com/substrax/paymentorchestrator/config/KafkaConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/docker-compose-aiflow.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000000000.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000000000.timeindex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000008154-0000000004.checkpoint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000018103-0000000006.checkpoint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000025269-0000000006.checkpoint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000047613-0000000011.checkpoint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000059737-0000000014.checkpoint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000088337-0000000018.checkpoint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000197632.snapshot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000116446-0000000022.checkpoint" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000123613-0000000022.checkpoint" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000132327-0000000023.checkpoint" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000139493-0000000023.checkpoint" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000198587.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000198587.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000198587.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000198587.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/00000000000000353315.snapshot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/quorum-state" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__cluster_metadata-0/quorum-state" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-0/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-0/leader-epoch-checkpoint" afterDir="false" />
@@ -55,9 +57,8 @@
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-26/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-26/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-27/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-27/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-28/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-28/leader-epoch-checkpoint" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-29/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-29/00000000000000000000.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-29/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-29/00000000000000000000.timeindex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-29/00000000000000000061.snapshot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-29/00000000000000000062.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-29/00000000000000000062.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-29/00000000000000000085.snapshot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-29/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-29/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-3/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-3/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-30/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-30/leader-epoch-checkpoint" afterDir="false" />
@@ -65,13 +66,15 @@
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-32/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-32/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-33/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-33/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-34/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-34/leader-epoch-checkpoint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-35/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-35/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-35/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-35/00000000000000000000.timeindex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-35/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-35/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-36/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-36/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-37/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-37/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-38/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-38/leader-epoch-checkpoint" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/00000000000000000000.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/00000000000000000000.timeindex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/00000000000000000258.snapshot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/00000000000000000283.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/00000000000000000283.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/00000000000000000283.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/00000000000000000283.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/00000000000000000552.snapshot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-39/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-4/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-4/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-40/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-40/leader-epoch-checkpoint" afterDir="false" />
@@ -82,50 +85,52 @@
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-45/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-45/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-46/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-46/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-47/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-47/leader-epoch-checkpoint" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-48/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-48/00000000000000000000.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-48/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-48/00000000000000000000.timeindex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-48/00000000000000000249.snapshot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-48/00000000000000000262.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-48/00000000000000000262.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-48/00000000000000000543.snapshot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-48/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-48/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-49/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-49/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-5/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-5/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-6/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-6/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-7/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-7/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-8/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-8/leader-epoch-checkpoint" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-9/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-9/00000000000000000000.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-9/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-9/00000000000000000000.timeindex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-9/00000000000000000067.snapshot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-9/00000000000000000232.snapshot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-9/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/__consumer_offsets-9/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/00000000000000000000.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/00000000000000000000.timeindex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/00000000000000000068.snapshot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/00000000000000000070.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/00000000000000000070.snapshot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/00000000000000000070.timeindex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/00000000000000000090.snapshot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/leader-epoch-checkpoint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/partition.metadata" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/_schemas-0/partition.metadata" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/cleaner-offset-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/cleaner-offset-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/dead-letter-events-0/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/dead-letter-events-0/leader-epoch-checkpoint" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-0/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-0/00000000000000000000.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-0/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-0/00000000000000000000.timeindex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-0/00000000000000000011.snapshot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-0/00000000000000000060.snapshot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-0/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-0/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-1/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-1/00000000000000000000.timeindex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-1/00000000000000000009.snapshot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-1/00000000000000000053.snapshot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-1/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-1/leader-epoch-checkpoint" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-2/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-2/00000000000000000000.index" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-2/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-2/00000000000000000000.timeindex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-2/00000000000000000013.snapshot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-2/00000000000000000057.snapshot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-2/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/ledger-events-2/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/notification-events-0/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/notification-events-0/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/notification-events-1/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/notification-events-1/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/notification-events-2/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/notification-events-2/leader-epoch-checkpoint" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/00000000000000000000.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/00000000000000000000.timeindex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/00000000000000000160.snapshot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/00000000000000000180.index" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/00000000000000000180.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/00000000000000000180.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/00000000000000000180.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/00000000000000000434.snapshot" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/leader-epoch-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/payment-events-0/leader-epoch-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/recovery-point-offset-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/recovery-point-offset-checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infra/docker/infra/kafka-data/replication-offset-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/infra/docker/infra/kafka-data/replication-offset-checkpoint" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/files/LedgerLocalFileWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/files/LedgerLocalFileWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/kafka/LedgerEventConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/kafka/LedgerEventConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/repository/LedgerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/repository/LedgerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/scheduler/LedgerBatchScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/ledger-service/src/main/java/com/substrax/ledger/scheduler/LedgerBatchScheduler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/payment-orchestrator/src/main/java/com/substrax/paymentorchestrator/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/payment-orchestrator/src/main/java/com/substrax/paymentorchestrator/service/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/schemas/notification-events-value.avsc" beforeDir="false" afterPath="$PROJECT_DIR$/infra/schemas/notification-events-value.avsc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/fraud-service/src/main/java/com/substrax/fraud/events/FraudEventProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/fraud-service/src/main/java/com/substrax/fraud/events/FraudEventProducer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ledger-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/services/ledger-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ledger-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/services/ledger-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ledger-service/src/main/resources/application-docker.properties" beforeDir="false" afterPath="$PROJECT_DIR$/services/ledger-service/src/main/resources/application-docker.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/payment-orchestrator/src/main/java/com/substrax/paymentorchestrator/kafka/LedgerEventProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/payment-orchestrator/src/main/java/com/substrax/paymentorchestrator/kafka/LedgerEventProducer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/payment-orchestrator/src/main/java/com/substrax/paymentorchestrator/kafka/PaymentEventProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/payment-orchestrator/src/main/java/com/substrax/paymentorchestrator/kafka/PaymentEventProducer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/services/payment-orchestrator/src/main/java/com/substrax/paymentorchestrator/serviceimpl/PaymentSagaServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/services/payment-orchestrator/src/main/java/com/substrax/paymentorchestrator/serviceimpl/PaymentSagaServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -177,15 +182,23 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/nithinraaj/Documents/Projects/Spring Projects/substrax-platform/services/ledger-service/src/main/resources/db/migration"
+    "last_opened_file_path": "/Users/nithinraaj/Documents/Projects/Spring Projects/substrax-platform/services/fraud-service/src/main/java/com/substrax/fraud"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/services/fraud-service/src/main/java/com/substrax/fraud" />
+      <recent name="$PROJECT_DIR$/services/notification-service/src/main/java/com/substrax/notificationservice" />
+      <recent name="$PROJECT_DIR$/services/notification-service/src/main/resources/db/migration" />
       <recent name="$PROJECT_DIR$/services/ledger-service/src/main/resources/db/migration" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/infra/airflow" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.substrax.fraud.config" />
+      <recent name="com.substrax.ledger.config" />
+      <recent name="com.substrax.notificationservice.config" />
     </key>
   </component>
   <component name="TaskManager">

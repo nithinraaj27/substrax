@@ -16,7 +16,7 @@ public class PaymentEventProducer {
 
     private static final String TOPIC = "payment-events";
 
-    private final KafkaTemplate<String, PaymentEvent> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Retry(name = "paymentProducer", fallbackMethod = "sendFallback")
     @CircuitBreaker(name = "paymentProducer", fallbackMethod = "sendFallback")

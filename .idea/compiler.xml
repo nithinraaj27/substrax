@@ -14,6 +14,7 @@
         <module name="api-gateway" />
         <module name="payment-orchestrator" />
         <module name="eureka-server" />
+        <module name="notification-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -23,6 +24,7 @@
       <module name="eureka-server" options="-parameters" />
       <module name="fraud-service" options="-parameters" />
       <module name="ledger-service" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
       <module name="payment-orchestrator" options="-parameters" />
     </option>
   </component>

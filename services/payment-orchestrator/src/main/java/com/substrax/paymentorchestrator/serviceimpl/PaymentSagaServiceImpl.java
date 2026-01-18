@@ -72,6 +72,7 @@ public class PaymentSagaServiceImpl implements PaymentSagaService {
             return;
         }
 
+        // 3 Emit Ledger Events
         ledgerEventService.emitLedgerDebit(
                 UUID.randomUUID(),
                 event.getTransactionId().toString(),
@@ -88,6 +89,24 @@ public class PaymentSagaServiceImpl implements PaymentSagaService {
                 event.getCurrency().toString(),
                 "PAYMENT_SUCCESS"
         );
+
+
+        // 4 Emit PAYMENT_SUCCESS
+        PaymentEvent successEvent = PaymentEvent.newBuilder()
+                .setEventId(UUID.randomUUID().toString())
+                .setEventType(PaymentEventType.PAYMENT_SUCCESS)
+                .setTransactionId(event.getTransactionId())
+                .setSubscriptionId(event.getSubscriptionId())
+                .setUserId(event.getUserId())
+                .setAmount(event.getAmount())
+                .setCurrency(event.getCurrency())
+                .setProvider(event.getProvider())
+                .setEventTime(Instant.now().toEpochMilli())
+                .build();
+
+        paymentEventProducer.send(successEvent);
+
+        log.info("PAYMENT_SUCCESS published for txId={}", txId);
     }
 
     @Transactional
@@ -145,6 +164,8 @@ public class PaymentSagaServiceImpl implements PaymentSagaService {
                 .build();
 
         paymentEventProducer.send(failedEvent);
+
+        log.info("PAYMENT_FAILED published for txId={}", txId);
     }
 
     @Transactional

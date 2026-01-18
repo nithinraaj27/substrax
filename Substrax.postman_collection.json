@@ -1,0 +1,288 @@
+{
+  "info": {
+    "_postman_id": "a07fb9b0-caeb-4c24-b720-a3f747a9191d",
+    "name": "Substrax",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "18649116"
+  },
+  "item": [
+    {
+      "name": "payment-orchestrator",
+      "item": [
+        {
+          "name": "paymentIntiate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI0bVVCU2puUWd4N2REOTJYTkduUkh4d0VIUDloNW1pczU2X3NBQ09yQTVFIn0.eyJleHAiOjE3NjczNzAyODcsImlhdCI6MTc2NzM2OTk4NywianRpIjoiNzU3Nzk5ZGQtNTRlZi00NzVkLTgxZWQtMTcwMjM3Y2FmZDM3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgxL3JlYWxtcy9zdWJzdHJheCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIxYmZmNjRiNC0yOTE5LTQ3MTktYWEyNi03ZmJiMjJjYzNjNmUiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhcGktZ2F0ZXdheSIsInNpZCI6IjRkYTEzNjRmLTkyOGQtNGRlMC1hNjlmLWFiNjAyOTMxNzg3OSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLXN1YnN0cmF4Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJ0ZXN0IHVzZXIiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ0ZXN0LXVzZXIiLCJnaXZlbl9uYW1lIjoidGVzdCIsImZhbWlseV9uYW1lIjoidXNlciIsImVtYWlsIjoibml0aGlucmFhampwQGdtYWlsLmNvbSJ9.LywR9EBx3erG4WzOo6Ccq41S1nZiA1EH-n46l8xIM6Y6j8Ph33DyAgllBsBdmtRz2JE-ZaQpJQTeTZOPnv_3hSUNJZ1nZAZe44JhMJ2YbMDxiIgWLEabWP4x3loRTJh-p2Hdr7VNY6CEoHXP6uIkCvCKKepNZmcvz9Mut9M4wNepAZGIlKWp4-ho4-FsMdz-hJgVWUhbv1IZPiDdthNhk4J4Lp2FcXDBVLrD8lwrDAaiO4laudWvS0SFDxZkPXNldmKHOVQHFTjRXJUTv-miKmZXgFkO-IL1dBx3gxpU6s-7DmyKM6gmXTfM3G08RyYtPHGMGQQUmRF33Bxg-od6Ew"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "idem-12345"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"11111111-1111-1111-1111-111111111111\",\n    \"subscriptionId\": \"22222222-2222-2222-2222-222222222222\",\n    \"amount\": 499.00,\n    \"currency\": \"INR\",\n    \"planId\": \"PRO_MONTHLY\"\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/payments/initiate",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "payments",
+                "initiate"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "jwtToken",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "type": "text",
+                  "key": "client_id",
+                  "value": "api-gateway"
+                },
+                {
+                  "type": "text",
+                  "key": "grant_type",
+                  "value": "password"
+                },
+                {
+                  "type": "text",
+                  "key": "username",
+                  "value": "test-user"
+                },
+                {
+                  "type": "text",
+                  "key": "password",
+                  "value": "PASSWORD"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8081/realms/substrax/protocol/openid-connect/token",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "realms",
+                "substrax",
+                "protocol",
+                "openid-connect",
+                "token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Status",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "idem-125"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"11111111-1111-1111-1111-111111111111\",\n    \"subscriptionId\": \"22222222-2222-2222-2222-222222222222\",\n    \"amount\": 5000000,\n    \"currency\": \"INR\",\n    \"provider\": \"PRO_MONTHLY\"\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/payments/08e83b07-0793-4167-af51-93b66f195aaa",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "payments",
+                "08e83b07-0793-4167-af51-93b66f195aaa"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Retry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Idempotency-Key",
+                "value": "idem-125"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"11111111-1111-1111-1111-111111111111\",\n    \"subscriptionId\": \"22222222-2222-2222-2222-222222222222\",\n    \"amount\": 5000000,\n    \"currency\": \"INR\",\n    \"provider\": \"PRO_MONTHLY\"\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/payments/3a589b12-62a8-4da0-b269-028ebdb9ff6e/retry",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "payments",
+                "3a589b12-62a8-4da0-b269-028ebdb9ff6e",
+                "retry"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              "const response = pm.response.json();",
+              "",
+              "const accessToken = response.accessToken;",
+              "",
+              "if (accessToken) {",
+              "    // 3. Save it as a COLLECTION variable (only this collection can use it)",
+              "    pm.collectionVariables.set(\"jwt_token\", accessToken);",
+              "    ",
+              "    // 4. Optional: Nice log in console to confirm",
+              "    console.log(\"✅ JWT access_token saved to collection variable!\");",
+              "} else {",
+              "    console.error(\"❌ No access_token found in response\");",
+              "    pm.test(\"Access token should exist\", () => {",
+              "        pm.expect(accessToken).to.exist;",
+              "    });",
+              "}",
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "const response = pm.response.json();",
+          "",
+          "const accessToken = response.accessToken;",
+          "",
+          "if (accessToken) {",
+          "    // 3. Save it as a COLLECTION variable (only this collection can use it)",
+          "    pm.collectionVariables.set(\"jwt_token\", accessToken);",
+          "    ",
+          "    // 4. Optional: Nice log in console to confirm",
+          "    console.log(\"✅ JWT access_token saved to collection variable!\");",
+          "    console.log(\"Token (first 30 chars): \" + accessToken.substring(0, 30) + \"...\");",
+          "    ",
+          "    // 5. Optional: Also save expires_in if you want to use it later",
+          "    pm.collectionVariables.set(\"token_expires_in\", response.expires_in);",
+          "} else {",
+          "    console.error(\"❌ No access_token found in response\");",
+          "    pm.test(\"Access token should exist\", () => {",
+          "        pm.expect(accessToken).to.exist;",
+          "    });",
+          "}",
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "jwt_token",
+      "value": ""
+    }
+  ]
+}

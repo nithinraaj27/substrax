@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "NotificationEvent",
-  "namespace": "com.substrax.events.notification",
+  "namespace": "com.substrax.events.notificationEvent",
   "fields": [
     {
       "name": "notification_id",

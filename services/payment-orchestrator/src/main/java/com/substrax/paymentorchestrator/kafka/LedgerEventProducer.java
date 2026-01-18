@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LedgerEventProducer {
 
-    private final KafkaTemplate<String, LedgerEvent> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     private static final String TOPIC = "ledger-events";
 

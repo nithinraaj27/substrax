@@ -15,7 +15,7 @@ public class FraudEventProducer {
 
     private static final String TOPIC = "payment-events";
 
-    private final KafkaTemplate<String, PaymentEvent> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @CircuitBreaker(name="fraudservice", fallbackMethod = "fraudFallback")
     @Retry(name = "fraudService")
