@@ -21,7 +21,7 @@ This project prioritizes **correctness, resilience, observability, and auditabil
 * [Apache Airflow](#apache-airflow)
 * [Known Gaps](#known-gaps)
 * [Roadmap](#roadmap)
-* [Getting Started](#getting--started)
+* [Getting Started](#Prerequisites)
 
 ---
 
@@ -261,7 +261,7 @@ This project runs using **Docker Compose** and is split into **two execution lay
 
 ---
 
-## 🧱 Prerequisites
+## Prerequisites
 
 Ensure the following are installed:
 
