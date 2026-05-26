@@ -1,0 +1,10 @@
+.git/
+__pycache__/
+target/
+node_modules/
+*.log
+*.png
+*.jpg
+.env
+venv/
+.idea/
